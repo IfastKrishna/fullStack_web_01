@@ -12,10 +12,13 @@ function ok() {
 ok();
 
 function gen(Range, number, uniqueChar) {
+
   let mixedStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   let num = "1234567890";
   let uniq = "!@#$%^&*()?/.,><{}|+=_-~`";
+
   let password = "";
+
   if (number && uniqueChar) {
     let str = mixedStr + num + uniq;
     for (let i = 0; i < Range.value; i++) {
