@@ -11,19 +11,19 @@
     />
   </head>
   <body class="bg-dark">
-    <div class="container">
-      <h4 class="text-center">Complete Todos with localStorage</h4>
-      <div class="w-50 mx-auto d-flex gap-3">
+    <div class="container mt-2">
+      <h2 class="text-center text-white">IFAST -- TO DO</h2>
+      <div class="w-75 mx-auto d-flex gap-2 flex-column flex-md-row">
         <input type="text" class="form-control" id="item" />
         <button
-          class="btn btn-success text-nowrap d-flex align-items-center gap-2"
+          class="btn btn-success text-nowrap d-flex align-items-center gap-2 justify-content-center"
           onclick="addItem()"
         >
-          <i class="bi bi-plus-circle fs-4"></i> add Item
+          <i class="bi bi-plus-circle fs-4"></i> Create Item
         </button>
       </div>
 
-      <div class="w-75 mx-auto" id="allitem"></div>
+      <div class="w-75 mx-auto mt-3" id="allitem"></div>
     </div>
 
     <script src="./bootstrap.js"></script>

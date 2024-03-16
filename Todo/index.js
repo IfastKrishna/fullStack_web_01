@@ -19,7 +19,6 @@ const createItem = (item) => {
     "alert-success",
     "d-flex",
     "gap-3",
-    "mx-2",
     "my-2"
   );
   itemContainer.innerHTML = ` 
