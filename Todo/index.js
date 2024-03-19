@@ -1,81 +1,71 @@
-let editBtn;
-let saveBtn;
+const AllListContainer = document.querySelector("#allList");
 
-function addItem() {
-  const item = document.querySelector("#item");
-  if (item.value !== "") {
-    let db = JSON.parse(localStorage.getItem("ItemDB")) || [];
-    db.push(item.value);
-    localStorage.setItem("ItemDB", JSON.stringify(db));
-    printItem();
-    item.value = "";
-  }
-}
+document.querySelector("#todoBtn").addEventListener("click", function () {
+  const listInput = document.querySelector("#list");
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.push(listInput.value);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  printList();
 
-const createItem = (item) => {
-  const itemContainer = document.createElement("div");
-  itemContainer.classList.add(
+  listInput.value = "";
+});
+
+const createList = (list, listIndex) => {
+  const listContainer = document.createElement("div");
+  listContainer.classList.add(
     "alert",
     "alert-success",
     "d-flex",
-    "gap-3",
-    "my-2"
+    "align-items-center",
+    "gap-3"
   );
-  itemContainer.innerHTML = ` 
-      <input type="text" class="form-control border-0 bg-transparent " value="${item}" disabled/>
-      <i class="bi bi-pencil-fill btn  btn-primary" type="button" onclick="edit(this)"></i>
-      <i class="bi bi-trash3-fill btn  btn-danger" type="button" onclick="destroy(this)"></i>`;
-  return itemContainer;
+  listContainer.innerHTML = ` 
+    <input type="text" class="form-control border-0 bg-transparent " id="${listIndex}" value="${list}" disabled/>
+    <i class="bi bi-pencil-square fs-4 btn btn-primary" onclick="edit(this)"></i>
+    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>
+ `;
+  AllListContainer.append(listContainer);
 };
 
 function edit(currEl) {
   const listContainer = currEl.parentElement;
-  const item = listContainer.querySelector("input").value;
-  listContainer.innerHTML = `
-      <input type="text" class="form-control" value="${item}"/>
-      <i class="bi bi-floppy btn  btn-success" type="button" onclick="save(this)"></i>
-      <i class="bi bi-trash3-fill btn  btn-danger" type="button" onclick="destroy(this)"></i>`;
-  const input = listContainer.querySelector("input");
-  input.focus();
-  input.selectionEnd = item.length;
+  const listInput = listContainer.querySelector("input");
+
+  listContainer.innerHTML = ` <input type="text" class="form-control" id="${listInput.id}" value="${listInput.value}"/>
+    <i class="bi bi-floppy-fill fs-4 btn btn-primary" onclick="save(this)"></i>
+    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>`;
 }
 
 function save(currEl) {
   const listContainer = currEl.parentElement;
-  const item = listContainer.querySelector("input").value;
-  console.log(listContainer.parentElement.children);
-  const index = Array.from(listContainer.parentElement.children).indexOf(
-    listContainer
-  );
-  console.log(index);
-  let db = JSON.parse(localStorage.getItem("ItemDB")) || [];
-  db[index] = item;
-  localStorage.setItem("ItemDB", JSON.stringify(db));
-  listContainer.innerHTML = `
-      <input type="text" class="form-control border-0 bg-transparent " value="${item}" disabled/>
-      <i class="bi bi-pencil-fill btn  btn-primary" type="button" onclick="edit(this)"></i>
-      <i class="bi bi-trash3-fill btn  btn-danger" type="button" onclick="destroy(this)"></i>`;
+  const listInput = listContainer.querySelector("input");
+
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos[Number(listInput.id)] = listInput.value;
+  localStorage.setItem("todos", JSON.stringify(todos));
+
+  listContainer.innerHTML = `<input type="text" class="form-control border-0 bg-transparent" id="${listInput.id}" value="${listInput.value}" disabled/>
+    <i class="bi bi-pencil-square fs-4 btn btn-primary" onclick="edit(this)"></i>
+    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>`;
 }
 
 function destroy(currEl) {
   const listContainer = currEl.parentElement;
-  const index = Array.from(listContainer.parentElement.children).indexOf(
-    listContainer
-  );
-  let db = JSON.parse(localStorage.getItem("ItemDB")) || [];
-  db.splice(index, 1);
-  localStorage.setItem("ItemDB", JSON.stringify(db));
-  listContainer.remove();
+  const listInput = listContainer.querySelector("input");
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.splice(Number(listInput.id), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  printList();
 }
 
-function printItem() {
-  const allItem = document.querySelector("#allitem");
-  allItem.innerHTML = "";
-  let db = JSON.parse(localStorage.getItem("ItemDB")) || [];
-  db.forEach((item) => {
-    const itemContainer = createItem(item);
-    allItem.appendChild(itemContainer);
+function printList() {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+  AllListContainer.innerHTML = "";
+
+  todos.forEach((list, i) => {
+    createList(list, i);
   });
 }
 
-printItem();
+printList();

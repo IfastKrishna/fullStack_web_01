@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>LocalStorage</h1>
+    <script>
+      function setLocalStorageDb(keyName, value) {
+        localStorage.setItem(keyName, JSON.stringify(value));
+        return getLocalStorageDb(keyName);
+      }
+
+      function getLocalStorageDb(keyName) {
+        return JSON.parse(localStorage.getItem(keyName));
+      }
+
+      const feceBookDb = { users: [], posts: [] };
+      const instaDb = {};
+      const twitterDb = {};
+      const youtubeDb = { suscribers: [], content: [], playlists: [] };
+
+      console.log(setLocalStorageDb("youtubeDb", youtubeDb));
+
+      var ytDb = getLocalStorageDb("youtubeDb");
+      ytDb.suscribers.push({
+        username: "Madhu",
+        iid: "12332",
+        mail: "madhu@gmail.com",
+      });
+      gt("youtubeDb", youtubeDb);
+
+      //   setLocalStorageDb("youtubeDb", youtubeDb);
+      //   var ytDb = getLocalStorageDb("youtubeDb");
+      //   ytDb.suscribers.push({
+      //     username: "Madhu",
+      //     iid: "12332",
+      //     mail: "madhu@gmail.com",
+      //   });
+    </script>
+  </body>
+</html>
