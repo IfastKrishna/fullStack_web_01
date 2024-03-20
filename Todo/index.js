@@ -21,8 +21,8 @@ const createList = (list, listIndex) => {
   );
   listContainer.innerHTML = ` 
     <input type="text" class="form-control border-0 bg-transparent " id="${listIndex}" value="${list}" disabled/>
-    <i class="bi bi-pencil-square fs-4 btn btn-primary" onclick="edit(this)"></i>
-    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>
+    <i class="bi bi-pencil-square btn btn-sm btn-primary" onclick="edit(this)"></i>
+    <i class="bi bi-trash3 btn btn-sm btn-danger" onclick="destroy(this)"></i>
  `;
   AllListContainer.append(listContainer);
 };
@@ -32,8 +32,8 @@ function edit(currEl) {
   const listInput = listContainer.querySelector("input");
 
   listContainer.innerHTML = ` <input type="text" class="form-control" id="${listInput.id}" value="${listInput.value}"/>
-    <i class="bi bi-floppy-fill fs-4 btn btn-primary" onclick="save(this)"></i>
-    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>`;
+    <i class="bi bi-floppy-fill btn btn-sm btn-success" onclick="save(this)"></i>
+    <i class="bi bi-trash3 btn btn-sm btn-danger" onclick="destroy(this)"></i>`;
 }
 
 function save(currEl) {
@@ -45,8 +45,8 @@ function save(currEl) {
   localStorage.setItem("todos", JSON.stringify(todos));
 
   listContainer.innerHTML = `<input type="text" class="form-control border-0 bg-transparent" id="${listInput.id}" value="${listInput.value}" disabled/>
-    <i class="bi bi-pencil-square fs-4 btn btn-primary" onclick="edit(this)"></i>
-    <i class="bi bi-trash3 fs-4 btn btn-danger" onclick="destroy(this)"></i>`;
+    <i class="bi bi-pencil-square btn btn-sm btn-primary" onclick="edit(this)"></i>
+    <i class="bi bi-trash3 btn btn-sm btn-danger" onclick="destroy(this)"></i>`;
 }
 
 function destroy(currEl) {
